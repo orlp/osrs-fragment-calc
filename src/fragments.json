@@ -1,0 +1,426 @@
+[
+  {
+    "image": "https://oldschool.runescape.wiki/images/Alchemaniac.png?1cf26",
+    "name": "Alchemaniac",
+    "category": "Skilling",
+    "effects": "Players will receive 15/30/50% extra coins when casting High Level Alchemy on items.",
+    "set_effect_1": "Endless Knowledge",
+    "set_effect_2": "Personal Banker"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Arcane_Conduit.png?3e694",
+    "name": "Arcane Conduit",
+    "category": "Combat (T1)",
+    "effects": "Runes and magic weapon charges have a 40/60/90% chance to be saved.",
+    "set_effect_1": "Endless Knowledge",
+    "set_effect_2": "Trailblazer"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Armadylean_Decree.png?3e694",
+    "name": "Armadylean Decree",
+    "category": "Combat (T4)",
+    "effects": "When wielding four Armadylean items, enchanted bolt effects have a 25/50/100% increased chance to activate.",
+    "set_effect_1": "Double Tap",
+    "set_effect_2": "Absolute Unit"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Bandosian_Might.png?3e694",
+    "name": "Bandosian Might",
+    "category": "Combat (T4)",
+    "effects": "When wielding four Bandosian items, the player's max melee hit is increased by 1/2/4 for every attack speed a weapon has.",
+    "set_effect_1": "Twin Strikes",
+    "set_effect_2": "Fast Metabolism"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Barbarian_Pest_Wars.png?3e694",
+    "name": "Barbarian Pest Wars",
+    "category": "Miscellaneous",
+    "effects": "Reward currency earned for playing the following minigames are increased by x2/x3/x4: Honour points from Barbarian Assault Commendation points from Pest Control Zeal Tokens from Soul Wars",
+    "set_effect_1": "Twin Strikes",
+    "set_effect_2": "Knife's Edge"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Bottomless_Quiver.png?7c9e5",
+    "name": "Bottomless Quiver",
+    "category": "Combat (T1)",
+    "effects": "Ranged ammunition and ranged weapon charges have a 40/60/90% chance to be saved, excluding chinchompas. The chances to save ammunition and charges are rolled separately.",
+    "set_effect_1": "Knife's Edge",
+    "set_effect_2": "Trailblazer"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Catch_Of_The_Day.png?7c9e5",
+    "name": "Catch Of The Day",
+    "category": "Harvesting",
+    "effects": "All types of Fishing activities have a 1 in 300/200/80 chance, per catch, to roll the rare drop table once.",
+    "set_effect_1": "Personal Banker",
+    "set_effect_2": "Unchained Talent"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Certified_Farmer.png?7c9e5",
+    "name": "Certified Farmer",
+    "category": "Harvesting",
+    "effects": "Farming yields have a 25/50/100% chance to be doubled, and are converted to bank notes upon harvest.",
+    "set_effect_1": "Greedy Gatherer",
+    "set_effect_2": "The Alchemist"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Chef%27s_Catch.png?7c9e5",
+    "name": "Chef's Catch",
+    "category": "Harvesting",
+    "effects": "Players have a 20/35/50% chance of cooking a raw fish upon catching them. Cooking experience is granted, even if players do not have the level required to cook them normally.",
+    "set_effect_1": "Greedy Gatherer",
+    "set_effect_2": "Trailblazer"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Chinchonkers.png?7c9e5",
+    "name": "Chinchonkers",
+    "category": "Harvesting",
+    "effects": "Catching chinchompas grant 50/100/100% more Hunter experience. At level 3, players will receive two chinchompas per successful capture.",
+    "set_effect_1": "Double Tap",
+    "set_effect_2": "Last Recall"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Clued_In.png?7c9e5",
+    "name": "Clued In",
+    "category": "Miscellaneous",
+    "effects": "The drop rate of scroll boxes from NPCs are increased to 1 in 30/25/15.",
+    "set_effect_1": "Last Recall",
+    "set_effect_2": "Drakan's Touch"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Deeper_Pockets.png?c0547",
+    "name": "Deeper Pockets",
+    "category": "Skilling",
+    "effects": "Players have a 20/50/100% chance to receive double loot when pickpocketing NPCs. This stacks multiplicatively with rogue equipment.",
+    "set_effect_1": "Chain Magic",
+    "set_effect_2": "Personal Banker"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Dine_%26_Dash.png?925fd",
+    "name": "Dine & Dash",
+    "category": "Production",
+    "effects": "Players have a 10/20/50% chance to receive an extra piece of cooked food while cooking. Though no extra Cooking experience is gained when this occurs, the extra food is automatically sent to the player's bank.",
+    "set_effect_1": "The Alchemist",
+    "set_effect_2": "Unchained Talent"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Divine_Restoration.png?c0547",
+    "name": "Divine Restoration",
+    "category": "Combat (T3)",
+    "effects": "Players will have their prayer points restored by one every 15/9/3.6 seconds.",
+    "set_effect_1": "Absolute Unit",
+    "set_effect_2": "Twin Strikes"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Dragon_On_A_Bit.png?28338",
+    "name": "Dragon On A Bit",
+    "category": "Production",
+    "effects": "Players have a 10/20/40% chance to save the materials used whilst crafting dragonhide armour. The saved materials are automatically sent to the player's bank.",
+    "set_effect_1": "The Craftsman",
+    "set_effect_2": "Absolute Unit"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Enchanted_Jeweler.png?c0547",
+    "name": "Enchanted Jeweler",
+    "category": "Skilling",
+    "effects": "Each enchantment spell cast will enchant up to 5/10/25 pieces of jewellery, granting the full Magic experience.",
+    "set_effect_1": "Last Recall",
+    "set_effect_2": "Endless Knowledge"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Golden_Brick_Road.png?28338",
+    "name": "Golden Brick Road",
+    "category": "Skilling",
+    "effects": "When a mark of grace appears when training on a Rooftop Agility Course, 4,000/7,000/15,000 coins will appear alongside it.",
+    "set_effect_1": "The Alchemist",
+    "set_effect_2": "Trailblazer"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Grave_Robber.png?28338",
+    "name": "Grave Robber",
+    "category": "Skilling",
+    "effects": "The amount of hallowed marks received when looting coffins within the Hallowed Sepulchre is increased by 50/150/300%.",
+    "set_effect_1": "Fast Metabolism",
+    "set_effect_2": "The Craftsman"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Homewrecker.png?28338",
+    "name": "Homewrecker",
+    "category": "Harvesting",
+    "effects": "Players have a x2/x3/x4 chance of receiving bird nests when chopping trees, and are sent to the bank rather than falling to the ground.",
+    "set_effect_1": "The Alchemist",
+    "set_effect_2": "Last Recall"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Hot_On_The_Trail.png?22b89",
+    "name": "Hot On The Trail",
+    "category": "Skilling",
+    "effects": "Players have a 2/5/10% chance to obtain a scroll box whilst lighting logs via Firemaking.",
+    "set_effect_1": "Fast Metabolism",
+    "set_effect_2": "Chain Magic"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Imcando%27s_Apprentice.png?5c432",
+    "name": "Imcando's Apprentice",
+    "category": "Production",
+    "effects": "Players have a 20/50/75% chance to craft an extra piece of gemmed jewellery, granting Crafting experience for the extra jewellery. Note that players must have spare inventory space to obtain the extra jewellery.",
+    "set_effect_1": "The Craftsman",
+    "set_effect_2": "Chain Magic"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Just_Druid%21.png?65c68",
+    "name": "Just Druid!",
+    "category": "Production",
+    "effects": "Players will receive 10/20/40% extra Herblore experience for each grimy herb cleaned.",
+    "set_effect_1": "The Alchemist",
+    "set_effect_2": "Greedy Gatherer"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Larger_Recharger.png?b6771",
+    "name": "Larger Recharger",
+    "category": "Combat (T3)",
+    "effects": "Players will have their special attack energy restored by 10% every 25/20/10 seconds.",
+    "set_effect_1": "Fast Metabolism",
+    "set_effect_2": "Drakan's Touch"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Livin%27_On_A_Prayer.png?b6771",
+    "name": "Livin' On A Prayer",
+    "category": "Combat (T3)",
+    "effects": "The drain rate of activated prayers are reduced by 15/30/60%.",
+    "set_effect_1": "Knife's Edge",
+    "set_effect_2": "Twin Strikes"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Message_In_A_Bottle.png?482af",
+    "name": "Message In A Bottle",
+    "category": "Miscellaneous",
+    "effects": "The chance of receiving clue geodes, nests, and bottles from skilling are increased by x3/x5/x10.",
+    "set_effect_1": "Knife's Edge",
+    "set_effect_2": "Greedy Gatherer"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Mixologist.png?437a0",
+    "name": "Mixologist",
+    "category": "Production",
+    "effects": "Players will have a 25/50/100% chance to mix a 4-dose potion rather than a 3-dose potion, with a 20/50/100% chance to save the secondary ingredient.",
+    "set_effect_1": "The Alchemist",
+    "set_effect_2": "Unchained Talent"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Molten_Miner.png?fb0e2",
+    "name": "Molten Miner",
+    "category": "Harvesting",
+    "effects": "If applicable, ores mined have a 20/50/100% chance to be smelted into bars. Smithing experience is granted, even if players do not have the level required to smelt them normally.",
+    "set_effect_1": "Greedy Gatherer",
+    "set_effect_2": "Personal Banker"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Mother%27s_Magic_Fossils.png?46126",
+    "name": "Mother's Magic Fossils",
+    "category": "Miscellaneous",
+    "effects": "The chance of receiving golden nuggets from the Motherlode Mine is increased by x2/x3/x4. The amount of pizazz points received from activities in the Mage Training Arena is increased by x2/x3/x4. The chance of receiving fossils from activities on Fossil Island is increased by x2/x3/x4.",
+    "set_effect_1": "Chain Magic",
+    "set_effect_2": "Endless Knowledge"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Plank_Stretcher.png?65619",
+    "name": "Plank Stretcher",
+    "category": "Production",
+    "effects": "Players will have a 10/20/50% chance to save their planks whilst training Construction.",
+    "set_effect_1": "Unchained Talent",
+    "set_effect_2": "Endless Knowledge"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Praying_Respects.png?65619",
+    "name": "Praying Respects",
+    "category": "Skilling",
+    "effects": "Remains are automatically buried/scattered, granting 50/100/200% of the usual Prayer experience. League experience multipliers are applied.",
+    "set_effect_1": "Knife's Edge",
+    "set_effect_2": "Drakan's Touch"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Pro_Tips.png?0ba77",
+    "name": "Pro Tips",
+    "category": "Production",
+    "effects": "Players will receive 30/50/100% more bolt tips per gem whilst making them.",
+    "set_effect_1": "The Craftsman",
+    "set_effect_2": "Double Tap"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Profletchional.png?a9bfa",
+    "name": "Profletchional",
+    "category": "Production",
+    "effects": "Fletching logs and stringing bows grant 30/50/100% more Fletching experience.",
+    "set_effect_1": "The Craftsman",
+    "set_effect_2": "Last Recall"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Rock_Solid.png?65619",
+    "name": "Rock Solid",
+    "category": "Harvesting",
+    "effects": "Iron, sandstone, and granite rocks have a 25/50/75% chance to not be depleted upon being mined.",
+    "set_effect_1": "Greedy Gatherer",
+    "set_effect_2": "Fast Metabolism"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Rogues%27_Chompy_Farm.png?323a6",
+    "name": "Rogues' Chompy Farm",
+    "category": "Miscellaneous",
+    "effects": "The chance of successfully cracking the wall safe at the end of the Rogues' Den maze is increased by 10/20/40%. Each chompy bird killed will count as 2/3/4 kills when checking chompy kill-count via the ogre bow. The amount of points earned from the Tithe Farm is increased by x2/x3/x4.",
+    "set_effect_1": "Double Tap",
+    "set_effect_2": "Unchained Talent"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Rooty_Tooty_2x_Runeys.png?a63ba",
+    "name": "Rooty Tooty 2x Runeys",
+    "category": "Production",
+    "effects": "Players have a 20/40/80% chance to receive an extra rune for each rune crafted.",
+    "set_effect_1": "Last Recall",
+    "set_effect_2": "Chain Magic"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Rumple-Bow-String.png?323a6",
+    "name": "Rumple-Bow-String",
+    "category": "Production",
+    "effects": "The Spin Flax spell gives 10/15/27 bow strings instead of the usual 5.",
+    "set_effect_1": "The Craftsman",
+    "set_effect_2": "Double Tap"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Rune_Escape.png?d7645",
+    "name": "Rune Escape",
+    "category": "Production",
+    "effects": "Players will no longer receive mind (lv-1)/body (lv-2)/elemental runes (lv-3) when crafting runes at the Ourania Altar.",
+    "set_effect_1": "Last Recall",
+    "set_effect_2": "Absolute Unit"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Saradominist_Defence.png?d7645",
+    "name": "Saradominist Defence",
+    "category": "Combat (T4)",
+    "effects": "When wielding four Saradominist items, the player's max hit is increased by 2/5/10 if they have taken damage in the last 3.6 seconds.",
+    "set_effect_1": "Absolute Unit",
+    "set_effect_2": "Knife's Edge"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Seedy_Business.png?d7645",
+    "name": "Seedy Business",
+    "category": "Harvesting",
+    "effects": "Players have a 10/25/50% chance to save their seed upon planting it in a farming patch.",
+    "set_effect_1": "Personal Banker",
+    "set_effect_2": "Trailblazer"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Slash_%26_Burn.png?d7645",
+    "name": "Slash & Burn",
+    "category": "Harvesting",
+    "effects": "Players have a 20/35/50% chance of burning logs upon chopping them. Firemaking experience is granted, even if players do not have the level required to burn them normally.",
+    "set_effect_1": "Greedy Gatherer",
+    "set_effect_2": "Unchained Talent"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Slay_%27n%27_Pay.png?49115",
+    "name": "Slay 'n' Pay",
+    "category": "Combat (T1)",
+    "effects": "Players will earn 10/20/50% more slayer reward points upon completing a slayer task.",
+    "set_effect_1": "Twin Strikes",
+    "set_effect_2": "Last Recall"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Slay_All_Day.png?49115",
+    "name": "Slay All Day",
+    "category": "Combat (T2)",
+    "effects": "Players will heal 1/2/3 hitpoints for every monster killed as part of a slayer task.",
+    "set_effect_1": "Knife's Edge",
+    "set_effect_2": "The Alchemist"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Smithing_Double.png?cfbe7",
+    "name": "Smithing Double",
+    "category": "Production",
+    "effects": "Players have a 5/15/30% chance to smith an extra item when smithing items at an anvil, granting Smithing experience for the extra item. Extra items will drop to the floor if players have no inventory space.",
+    "set_effect_1": "Personal Banker",
+    "set_effect_2": "Double Tap"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Smooth_Criminal.png?49115",
+    "name": "Smooth Criminal",
+    "category": "Skilling",
+    "effects": "The chance to successfully pickpocket NPCs is increased by 15/25/50%. At level 2, players will no longer take damage when stunned by a failed pickpocket attempt. The gloves of silence and Ardougne Diary bonus will stack.",
+    "set_effect_1": "Trailblazer",
+    "set_effect_2": "Last Recall"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Special_Discount.png?939b2",
+    "name": "Special Discount",
+    "category": "Combat (T2)",
+    "effects": "Special attacks whose energy cost is greater than 50/40/25% will cost 50/40/25% energy instead.",
+    "set_effect_1": "Twin Strikes",
+    "set_effect_2": "Drakan's Touch"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Superior_Tracking.png?939b2",
+    "name": "Superior Tracking",
+    "category": "Combat (T3)",
+    "effects": "Superior slayer monsters have a 1 in 150/100/30 chance of spawning during a slayer task for eligible slayer monsters.",
+    "set_effect_1": "Last Recall",
+    "set_effect_2": "Absolute Unit"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Tactical_Duelist.png?939b2",
+    "name": "Tactical Duelist",
+    "category": "Combat (T2)",
+    "effects": "Melee weapon charges have a 20/40/80% chance to be saved.",
+    "set_effect_1": "Twin Strikes",
+    "set_effect_2": "Absolute Unit"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Thrall_Damage.png?4df4f",
+    "name": "Thrall Damage",
+    "category": "Combat (T2)",
+    "effects": "The max hit of thralls are increased by x2/x3/x4. Damage is rounded up.",
+    "set_effect_1": "Chain Magic",
+    "set_effect_2": "Endless Knowledge"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Unholy_Ranger.png?4df4f",
+    "name": "Unholy Ranger",
+    "category": "Combat (T1)",
+    "effects": "The player's accuracy for ranged weapons is increased by 30/60/100% when they have no prayer points remaining. Excludes the dwarf multicannon.",
+    "set_effect_1": "Double Tap",
+    "set_effect_2": "Drakan's Touch"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Unholy_Warrior.png?4df4f",
+    "name": "Unholy Warrior",
+    "category": "Combat (T1)",
+    "effects": "The player's accuracy for melee weapons is increased by 12/20/30% when they have no prayer points remaining.",
+    "set_effect_1": "Knife's Edge",
+    "set_effect_2": "Trailblazer"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Unholy_Wizard.png?4df4f",
+    "name": "Unholy Wizard",
+    "category": "Combat (T1)",
+    "effects": "The player's accuracy for magic attacks is increased by 40/70/125% when they have no prayer points remaining.",
+    "set_effect_1": "Chain Magic",
+    "set_effect_2": "Drakan's Touch"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Venomaster.png?a6475",
+    "name": "Venomaster",
+    "category": "Combat (T1)",
+    "effects": "The player's attacks have a chance to inflict poison that starts at 3/5/7 damage. Players will gain poison immunity at level 2, and venom immunity at level 3.",
+    "set_effect_1": "Fast Metabolism",
+    "set_effect_2": "Absolute Unit"
+  },
+  {
+    "image": "https://oldschool.runescape.wiki/images/Zamorakian_Sight.png?7ad4f",
+    "name": "Zamorakian Sight",
+    "category": "Combat (T4)",
+    "effects": "When wielding four Zamorakian items, the player's accuracy for magic attacks is increased by 50/125/250%.",
+    "set_effect_1": "Chain Magic",
+    "set_effect_2": "Drakan's Touch"
+  }
+]

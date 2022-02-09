@@ -1,0 +1,17 @@
+[
+    {"name": "Absolute Unit",     "minimum": 2, "maximum": 3},
+    {"name": "Chain Magic",       "minimum": 2, "maximum": 3},
+    {"name": "Double Tap",        "minimum": 2, "maximum": 3},
+    {"name": "Drakan's Touch",    "minimum": 2, "maximum": 3},
+    {"name": "Endless Knowledge", "minimum": 3, "maximum": 3},
+    {"name": "Fast Metabolism",   "minimum": 2, "maximum": 2},
+    {"name": "Greedy Gatherer",   "minimum": 2, "maximum": 3},
+    {"name": "Knife's Edge",      "minimum": 2, "maximum": 3},
+    {"name": "Last Recall",       "minimum": 4, "maximum": 4},
+    {"name": "Personal Banker",   "minimum": 2, "maximum": 3},
+    {"name": "The Alchemist",     "minimum": 3, "maximum": 3},
+    {"name": "The Craftsman",     "minimum": 3, "maximum": 3},
+    {"name": "Trailblazer",       "minimum": 3, "maximum": 3},
+    {"name": "Twin Strikes",      "minimum": 2, "maximum": 3},
+    {"name": "Unchained Talent",  "minimum": 3, "maximum": 3}
+]
