@@ -108,6 +108,6 @@ out = template
 out = out.replace("TABLEGRIDHERE", tablegrid)
 out = out.replace("SETEFFECTSHERE", seteffects)
 
-with open("dist/index.html", "w") as f:
+with open("docs/index.html", "w") as f:
     f.write(out)
 

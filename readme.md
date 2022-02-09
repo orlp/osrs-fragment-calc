@@ -7,5 +7,5 @@ To build:
 
 ```
 python3 gen_page.py
-wasm-pack build --target web --out-dir dist/pkg
+wasm-pack build --target web --out-dir docs/pkg
 ```

@@ -1,0 +1,12 @@
+{
+  "name": "fragments",
+  "version": "0.1.0",
+  "files": [
+    "fragments_bg.wasm",
+    "fragments.js",
+    "fragments.d.ts"
+  ],
+  "module": "fragments.js",
+  "types": "fragments.d.ts",
+  "sideEffects": false
+}
