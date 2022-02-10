@@ -211,6 +211,9 @@ pub fn best_combinations(
             if common.len() == bci.used_fragments.len() - 1 {
                 let cur = (&absorber_frags - &common).into_iter().next().unwrap();
                 let alt = (&bci_frags - &common).into_iter().next().unwrap();
+                if frag_weights.contains_key(&cur) || frag_weights.contains_key(&alt) {
+                    continue;
+                }
                 match &mut absorber.alternatives {
                     out @ None => {
                         *out = Some((cur, vec![alt]));
