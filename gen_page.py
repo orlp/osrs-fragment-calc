@@ -31,9 +31,11 @@ def genradio(id, extra):
 <input {extra} type="radio" id="{id}-radio-neutral" name="{id}-radio" value="0" checked>\
 <label {extra} for="{id}-radio-neutral">0</label>\
 <input {extra} type="radio" id="{id}-radio-more" name="{id}-radio" value="1">\
-<label {extra} for="{id}-radio-more">+</label>\
+<label {extra} for="{id}-radio-more">1</label>\
 <input {extra} type="radio" id="{id}-radio-doublemore" name="{id}-radio" value="2">\
-<label {extra} for="{id}-radio-doublemore">&#8225;</label>\
+<label {extra} for="{id}-radio-doublemore">2</label>\
+<input {extra} type="radio" id="{id}-radio-triplemore" name="{id}-radio" value="3">\
+<label {extra} for="{id}-radio-triplemore">3</label>\
 <input {extra} type="radio" id="{id}-radio-always" name="{id}-radio" value="1000">\
 <label {extra} for="{id}-radio-always">&amp;</label>\
 </div>\
@@ -45,7 +47,7 @@ for category in categories:
     <div class="tablewrapper">
     <table>
     <caption>
-    <h3>{category.title()}</h3>
+    <h4>{category.title()}</h4>
     </caption>
     <thead>
     </thead>
@@ -57,7 +59,8 @@ for category in categories:
         icon = "https://oldschool.runescape.wiki/images/" + quote_plus(frag["name"].replace(" ", "_")) + ".png"
 
         out.append(fr"""
-        <tr><td><img class="icon" src="{icon}" title="{frag["name"]}"></td><td>{frag["name"]}</td><td>{genradio(frag["name"], extra)}</td></tr>
+<tr><td><img class="icon" src="{icon}" title="{' / '.join(sorted([frag["set_effect_1"], frag["set_effect_2"]]))}"></td>
+<td>{frag["name"]}</td><td>{genradio(frag["name"], extra)}</td></tr>
         """)
 
     out.append(fr"""
@@ -99,6 +102,9 @@ out.append(fr"""
 
 seteffects = "\n".join(s.strip() for s in out)
 
+fragsets = {frag["name"]: sorted([frag["set_effect_1"], frag["set_effect_2"]])
+            for frag in frags}
+
 
 
 with open("index_template.html") as f:
@@ -107,6 +113,7 @@ with open("index_template.html") as f:
 out = template
 out = out.replace("TABLEGRIDHERE", tablegrid)
 out = out.replace("SETEFFECTSHERE", seteffects)
+out = out.replace("FRAGSETSHERE", json.dumps(fragsets))
 
 with open("docs/index.html", "w") as f:
     f.write(out)

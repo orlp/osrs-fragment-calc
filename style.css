@@ -31,7 +31,7 @@ body, table {
 
 .main {
     display: grid;
-    grid-template-columns: 300px 350px auto;
+    grid-template-columns: 300px 330px auto;
     column-gap: 2em;
     margin: 0;
     padding: 1em;

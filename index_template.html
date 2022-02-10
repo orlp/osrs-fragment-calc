@@ -1,5 +1,6 @@
 <html>
   <head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="style.css">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
   </head>
@@ -12,8 +13,8 @@
     <h3>Fragment Set Calculator</h3>
     <p>
     For each desired set effect or individual fragment, indicate your preference
-    on the right. <tt>!</tt> is never, <tt>&</tt> is always. Using <tt>&#8225;</tt>, <tt>+</tt> and
-    <tt>-</tt> you can indicate soft preferences. At most 100 results are shown, in order
+    on the right. <tt>!</tt> is never, <tt>&</tt> is always. Using <tt>1</tt>, <tt>2</tt> and
+    <tt>3</tt> you can indicate soft preferences, with "<tt>-</tt>" indicating a preference of -1. At most 25 results are shown, in order
     of preference, with ties broken by fewest fragments required.</p>
 
     <p><label for="numfrags">Fragments:</label> <input type="number" step="1" min="1" max="7" value="7" id="maxfrags"></input>
@@ -39,6 +40,19 @@ TABLEGRIDHERE
 <!-- Note the usage of `type=module` here as this is an ES6 module -->
 <script type="module">
     import init, { init_panic_hook, compute_combinations } from './pkg/fragments.js';
+
+    let fragsets = FRAGSETSHERE;
+
+    let icon = function(name) {
+        let icon_name = name.replace("Last Recall", "Last Recall (Shattered Relics)").replaceAll(" ", "_");
+        let url = "https://oldschool.runescape.wiki/images/" + encodeURIComponent(icon_name) + ".png";
+        let title = name;
+        if (fragsets[name] != null) {
+            title = fragsets[name].join(" / ");
+        }
+        let img = '<img class="icon" src="' + url + '" title="' + title + '">';
+        return img;
+    }
     
     async function run() {
         await init();
@@ -82,7 +96,7 @@ TABLEGRIDHERE
                 "max_fragments": parseInt(document.getElementById("maxfrags").value),
                 "set_effect_weights": set_effect_weights,
                 "frag_weights": frag_weights,
-                "max_results": 100,
+                "max_results": 25,
             });
             let result = JSON.parse(compute_combinations(query));
             
@@ -97,39 +111,43 @@ TABLEGRIDHERE
                 }
                 num_filtered += 1;
 
-                let display = "<h5>Soft preference score: " + (combo["score"] - num_mandatory * 1000) + "</h5>";
-                display += "<ul>";
+                let display = ["<h5>Soft preference score: " + (combo["score"] - num_mandatory * 1000) + "</h5>"];
+                display.push("<ul>");
                 for (let frag of combo["used_fragments"]) {
-                    let url = "https://oldschool.runescape.wiki/images/" + encodeURIComponent(frag.replaceAll(" ", "_")) + ".png";
-                    let img = '<img class="icon" src="' + url + '" title="' + frag + '">'
-                    display += "<li>" + img + " " + frag + "</li>";
+                    display.push("<li>");
+                    display.push(icon(frag) + " " + frag);
+                    display.push("</li>");
                 }
-                display += "</ul>";
+                display.push("</ul>");
                 
                 let effects = [];
                 for (let set of combo["activated_set_effects"]) {
-                    let icon_name = set[0].replace("Last Recall", "Last Recall (Shattered Relics)").replaceAll(" ", "_");
-                    let url = "https://oldschool.runescape.wiki/images/" + encodeURIComponent(icon_name) + ".png";
-                    let img = '<img class="icon" src="' + url + '" title="' + set[0] + '">'
                     if (should_show_level[set[0]]) {
-                        effects.push(img + " (" + set[1] + ")");
+                        effects.push(icon(set[0]) + " (" + set[1] + ")");
                     } else {
-                        effects.push(img);
+                        effects.push(icon(set[0]));
                     }
                 }
                 if (effects.length > 0) {
-                    display += "Set effects: " + effects.join(", ");
+                    display.push("Set effects: " + effects.join(", "));
                 } else {
-                    display += "Set effects: none.";
+                    display.push("Set effects: none.");
                 }
 
-                resultdiv.insertAdjacentHTML("beforeend", display);
-                console.log(combo);
+                resultdiv.insertAdjacentHTML("beforeend", display.join(""));
             }
 
             if (num_filtered === 0) {
                 resultdiv.innerHTML = 'No results.';
             }
+        
+            tippy('#results [title]', {
+  content(reference) {
+    const title = reference.getAttribute('title');
+    reference.removeAttribute('title');
+    return title;
+  },
+});
         });
 
         $("#reset").click(function() {
@@ -144,6 +162,8 @@ TABLEGRIDHERE
 src="https://code.jquery.com/jquery-3.6.0.min.js"
 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 <script type="text/javascript">
     $(function(){
         $('label').bind('touchstart mousedown', function() {
@@ -152,7 +172,14 @@ crossorigin="anonymous"></script>
         }).bind('click touchend', function(e) {
             e.preventDefault();
         });
-        
+
+        tippy('[title]', {
+  content(reference) {
+    const title = reference.getAttribute('title');
+    reference.removeAttribute('title');
+    return title;
+  },
+});
     });
 </script>
 </body>

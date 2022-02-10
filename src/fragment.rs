@@ -141,7 +141,7 @@ pub fn best_combinations(
         .try_collect()?;
     
     let num_optional_frags = max_fragments as i64 - mandatory_fragments.len() as i64;
-    let best_combinations = (1..=num_optional_frags)
+    let best_combinations = (0..=num_optional_frags)
         .flat_map(|k| filtered_frag_ids.iter().copied().combinations(k as usize))
         .map(|mut comb| {
             comb.extend(&mandatory_fragments);
