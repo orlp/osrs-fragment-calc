@@ -105,7 +105,7 @@ seteffects = "\n".join(s.strip() for s in out)
 fragsets = {frag["name"]: sorted([frag["set_effect_1"], frag["set_effect_2"]])
             for frag in frags}
 
-
+compressed_names = sorted(set(frag["name"] for frag in frags + set_effects))
 
 with open("index_template.html") as f:
     template = f.read()
@@ -114,6 +114,7 @@ out = template
 out = out.replace("TABLEGRIDHERE", tablegrid)
 out = out.replace("SETEFFECTSHERE", seteffects)
 out = out.replace("FRAGSETSHERE", json.dumps(fragsets))
+out = out.replace("COMPRESSED_NAMES_HERE", json.dumps(compressed_names))
 
 with open("docs/index.html", "w") as f:
     f.write(out)

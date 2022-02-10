@@ -270,117 +270,202 @@ in both (2) and (3), select both.</p>
     import init, { init_panic_hook, compute_combinations } from './pkg/fragments.js';
 
     let fragsets = {"Alchemaniac": ["Endless Knowledge", "Personal Banker"], "Arcane Conduit": ["Endless Knowledge", "Trailblazer"], "Armadylean Decree": ["Absolute Unit", "Double Tap"], "Bandosian Might": ["Fast Metabolism", "Twin Strikes"], "Barbarian Pest Wars": ["Knife's Edge", "Twin Strikes"], "Bottomless Quiver": ["Knife's Edge", "Trailblazer"], "Catch Of The Day": ["Personal Banker", "Unchained Talent"], "Certified Farmer": ["Greedy Gatherer", "The Alchemist"], "Chef's Catch": ["Greedy Gatherer", "Trailblazer"], "Chinchonkers": ["Double Tap", "Last Recall"], "Clued In": ["Drakan's Touch", "Last Recall"], "Deeper Pockets": ["Chain Magic", "Personal Banker"], "Dine & Dash": ["The Alchemist", "Unchained Talent"], "Divine Restoration": ["Absolute Unit", "Twin Strikes"], "Dragon On A Bit": ["Absolute Unit", "The Craftsman"], "Enchanted Jeweler": ["Endless Knowledge", "Last Recall"], "Golden Brick Road": ["The Alchemist", "Trailblazer"], "Grave Robber": ["Fast Metabolism", "The Craftsman"], "Homewrecker": ["Last Recall", "The Alchemist"], "Hot On The Trail": ["Chain Magic", "Fast Metabolism"], "Imcando's Apprentice": ["Chain Magic", "The Craftsman"], "Just Druid!": ["Greedy Gatherer", "The Alchemist"], "Larger Recharger": ["Drakan's Touch", "Fast Metabolism"], "Livin' On A Prayer": ["Knife's Edge", "Twin Strikes"], "Message In A Bottle": ["Greedy Gatherer", "Knife's Edge"], "Mixologist": ["The Alchemist", "Unchained Talent"], "Molten Miner": ["Greedy Gatherer", "Personal Banker"], "Mother's Magic Fossils": ["Chain Magic", "Endless Knowledge"], "Plank Stretcher": ["Endless Knowledge", "Unchained Talent"], "Praying Respects": ["Drakan's Touch", "Knife's Edge"], "Pro Tips": ["Double Tap", "The Craftsman"], "Profletchional": ["Last Recall", "The Craftsman"], "Rock Solid": ["Fast Metabolism", "Greedy Gatherer"], "Rogues' Chompy Farm": ["Double Tap", "Unchained Talent"], "Rooty Tooty 2x Runeys": ["Chain Magic", "Last Recall"], "Rumple-Bow-String": ["Double Tap", "The Craftsman"], "Rune Escape": ["Absolute Unit", "Last Recall"], "Saradominist Defence": ["Absolute Unit", "Knife's Edge"], "Seedy Business": ["Personal Banker", "Trailblazer"], "Slash & Burn": ["Greedy Gatherer", "Unchained Talent"], "Slay 'n' Pay": ["Last Recall", "Twin Strikes"], "Slay All Day": ["Knife's Edge", "The Alchemist"], "Smithing Double": ["Double Tap", "Personal Banker"], "Smooth Criminal": ["Last Recall", "Trailblazer"], "Special Discount": ["Drakan's Touch", "Twin Strikes"], "Superior Tracking": ["Absolute Unit", "Last Recall"], "Tactical Duelist": ["Absolute Unit", "Twin Strikes"], "Thrall Damage": ["Chain Magic", "Endless Knowledge"], "Unholy Ranger": ["Double Tap", "Drakan's Touch"], "Unholy Warrior": ["Knife's Edge", "Trailblazer"], "Unholy Wizard": ["Chain Magic", "Drakan's Touch"], "Venomaster": ["Absolute Unit", "Fast Metabolism"], "Zamorakian Sight": ["Chain Magic", "Drakan's Touch"]};
+    let compressed_names = ["Absolute Unit", "Alchemaniac", "Arcane Conduit", "Armadylean Decree", "Bandosian Might", "Barbarian Pest Wars", "Bottomless Quiver", "Catch Of The Day", "Certified Farmer", "Chain Magic", "Chef's Catch", "Chinchonkers", "Clued In", "Deeper Pockets", "Dine & Dash", "Divine Restoration", "Double Tap", "Dragon On A Bit", "Drakan's Touch", "Enchanted Jeweler", "Endless Knowledge", "Fast Metabolism", "Golden Brick Road", "Grave Robber", "Greedy Gatherer", "Homewrecker", "Hot On The Trail", "Imcando's Apprentice", "Just Druid!", "Knife's Edge", "Larger Recharger", "Last Recall", "Livin' On A Prayer", "Message In A Bottle", "Mixologist", "Molten Miner", "Mother's Magic Fossils", "Personal Banker", "Plank Stretcher", "Praying Respects", "Pro Tips", "Profletchional", "Rock Solid", "Rogues' Chompy Farm", "Rooty Tooty 2x Runeys", "Rumple-Bow-String", "Rune Escape", "Saradominist Defence", "Seedy Business", "Slash & Burn", "Slay 'n' Pay", "Slay All Day", "Smithing Double", "Smooth Criminal", "Special Discount", "Superior Tracking", "Tactical Duelist", "The Alchemist", "The Craftsman", "Thrall Damage", "Trailblazer", "Twin Strikes", "Unchained Talent", "Unholy Ranger", "Unholy Warrior", "Unholy Wizard", "Venomaster", "Zamorakian Sight"];
+    let should_show_level = {};
+    should_show_level["Absolute Unit"] = true;
+    should_show_level["Chain Magic"] = true;
+    should_show_level["Double Tap"] = true;
+    should_show_level["Drakan's Touch"] = true;
+    should_show_level["Greedy Gatherer"] = true;
+    should_show_level["Knife's Edge"] = true;
+    should_show_level["Personal Banker"] = true;
+    should_show_level["Twin Strikes"] = true;
 
-    let icon = function(name) {
+    let icon = function(name, keepname) {
         let icon_name = name.replace("Last Recall", "Last Recall (Shattered Relics)").replaceAll(" ", "_");
         let url = "https://oldschool.runescape.wiki/images/" + encodeURIComponent(icon_name) + ".png";
         let title = name;
         if (fragsets[name] != null) {
-            title = fragsets[name].join(" / ");
+            if (keepname) {
+                title += ", " + fragsets[name].join(" / ");
+            } else {
+                title = fragsets[name].join(" / ");
+            }
         }
         let img = '<img class="icon" src="' + url + '" title="' + title + '">';
         return img;
     }
+
+    document.read_frag_form = function() {
+        let frag_weights = {};
+        let set_effect_weights = [];
+        
+        $(':radio:checked').each(function(e) {
+            let name = this.getAttribute("data-name");
+            let lvl = this.getAttribute("data-lvl");
+            let weight = parseInt(this.value);
+            if (weight != 0) {
+                if (lvl !== null) {
+                    set_effect_weights.push([name, parseInt(lvl), weight]);
+                } else {
+                    frag_weights[name] = weight;
+                }
+            }
+        });
+
+        return {
+            "max_fragments": parseInt(document.getElementById("maxfrags").value),
+            "set_effect_weights": set_effect_weights,
+            "frag_weights": frag_weights,
+        };
+    }
+
+    let form_name = function(name) {
+        return name.toLowerCase().replaceAll(" ", "-").replaceAll("&", "n").replaceAll("!", "").replaceAll("'", "");
+    }
+
+    document.compress_formdata = function(formdata) {
+        let compressed = {
+            "max_fragments": formdata["max_fragments"],
+            "set_effect_weights": [],
+            "frag_weights": {},
+        };
+        for (const [name, w] of Object.entries(formdata["frag_weights"])) {
+            compressed["frag_weights"][compressed_names.indexOf(name)] = w;
+        }
+        for (const [name, lvl, w] of formdata["set_effect_weights"]) {
+            compressed["set_effect_weights"].push([compressed_names.indexOf(name), lvl, w]);
+        }
+        return compressed;
+    }
+
+    document.decompress_formdata = function(formdata) {
+        let decompressed = {
+            "max_fragments": formdata["max_fragments"],
+            "set_effect_weights": [],
+            "frag_weights": {},
+        };
+        for (const [idx, w] of Object.entries(formdata["frag_weights"])) {
+            decompressed["frag_weights"][compressed_names[idx]] = w;
+        }
+        for (const [idx, lvl, w] of formdata["set_effect_weights"]) {
+            decompressed["set_effect_weights"].push([compressed_names[idx], lvl, w]);
+        }
+        return decompressed;
+    }
+
+    document.write_frag_form = function(formdata) {
+        for (const [name, w] of Object.entries(formdata["frag_weights"])) {
+            $("input[name=" + form_name(name) + "-radio]").val([w]);
+        }
+        for (const [name, lvl, w] of formdata["set_effect_weights"]) {
+            $("input[name=" + form_name(name) + "-" + lvl + "-radio]").val([w]);
+        }
+        document.getElementById("maxfrags").value = formdata["max_fragments"];
+    }
+
+    document.load_form_from_hash = function() {
+        let query = location.hash.substring(1);
+        if (query) {
+            let compressed = JSON.parse(atob(query));
+            let formdata = document.decompress_formdata(compressed);
+            document.write_frag_form(formdata);
+            document.calculate_fragments();
+        }
+    }
+
+    document.calculate_fragments = function() {
+        let formdata = document.read_frag_form();
+        let compressed = JSON.stringify(document.compress_formdata(formdata));
+        history.replaceState({}, "", `${location.pathname}#${btoa(compressed)}`);
+
+        formdata["max_results"] = 25;
+        let query = JSON.stringify(formdata);
+        let result = JSON.parse(compute_combinations(query));
+
+        let num_mandatory = 0;
+        for (const [_name, w] of Object.entries(formdata["frag_weights"])) {
+            if (w >= 1000) num_mandatory += 1;
+        }
+        for (const [_name, _lvl, w] of formdata["set_effect_weights"]) {
+            if (w >= 1000) num_mandatory += 1;
+        }
+        
+        let resultdiv = document.getElementById("results");
+        resultdiv.innerHTML = '';
+        let num_filtered = 0;
+        for (let combo of result["result"]) {
+            // Filter missed mandatory requirements (this also takes care
+            // of highly negative forbidden combos).
+            if (combo["score"] < num_mandatory * 1000 - 100) {
+                continue;
+            }
+            num_filtered += 1;
+
+            let display = ['<div class="result"><h5>Soft preference score: ' + (combo["score"] - num_mandatory * 1000) + "</h5>"];
+            display.push("<ul>");
+            for (let frag of combo["used_fragments"]) {
+                display.push("<li>");
+                display.push(icon(frag, false) + " " + frag);
+                if (combo["alternatives"] && combo["alternatives"][0] === frag) {
+                    display.push(" (or ");
+                    display.push(combo["alternatives"][1].map(function(a) { return icon(a, true); }).join(", "));
+                    display.push(")");
+                }
+                display.push("</li>");
+            }
+            display.push("</ul>");
+            
+            let effects = [];
+            for (let set of combo["activated_set_effects"]) {
+                if (should_show_level[set[0]]) {
+                    effects.push(icon(set[0], false) + " (" + set[1] + ")");
+                } else {
+                    effects.push(icon(set[0], false));
+                }
+            }
+            if (effects.length > 0) {
+                display.push("Set effects: " + effects.join(", "));
+            } else {
+                display.push("Set effects: none.");
+            }
+            display.push("</div>")
+
+            resultdiv.insertAdjacentHTML("beforeend", display.join(""));
+        }
+
+        if (num_filtered === 0) {
+            resultdiv.innerHTML = 'No results.';
+        }
+        resultdiv.insertAdjacentHTML("beforeend", "<br><br>");
+    
+        tippy('#results [title]', {
+            content(reference) {
+                const title = reference.getAttribute('title');
+                reference.removeAttribute('title');
+                return title;
+            },
+        });
+    };
     
     async function run() {
         await init();
         init_panic_hook();
-
-        let should_show_level = {};
-        should_show_level["Absolute Unit"] = true;
-        should_show_level["Chain Magic"] = true;
-        should_show_level["Double Tap"] = true;
-        should_show_level["Drakan's Touch"] = true;
-        should_show_level["Greedy Gatherer"] = true;
-        should_show_level["Knife's Edge"] = true;
-        should_show_level["Personal Banker"] = true;
-        should_show_level["Twin Strikes"] = true;
         
         // And afterwards we can use all the functionality defined in wasm.
         // console.log(compute_combinations);
-        $("#calculate").click(function() {
-            let frag_weights = {};
-            let set_effect_weights = [];
-            
-            let num_mandatory = 0;
-            
-            $(':radio:checked').each(function(e) {
-                let name = this.getAttribute("data-name");
-                let lvl = this.getAttribute("data-lvl");
-                let weight = parseInt(this.value);
-                if (weight != 0) {
-                    if (weight >= 1000) {
-                        num_mandatory += 1;
-                    }
-                    if (lvl !== null) {
-                        set_effect_weights.push([name, parseInt(lvl), weight]);
-                    } else {
-                        frag_weights[name] = weight;
-                    }
-                }
-                
-            });
-            let query = JSON.stringify({
-                "max_fragments": parseInt(document.getElementById("maxfrags").value),
-                "set_effect_weights": set_effect_weights,
-                "frag_weights": frag_weights,
-                "max_results": 25,
-            });
-            let result = JSON.parse(compute_combinations(query));
-            
-            let resultdiv = document.getElementById("results");
-            resultdiv.innerHTML = '';
-            let num_filtered = 0;
-            for (let combo of result["result"]) {
-                // Filter missed mandatory requirements (this also takes care
-                // of highly negative forbidden combos).
-                if (combo["score"] < num_mandatory * 1000 - 100) {
-                    continue;
-                }
-                num_filtered += 1;
-
-                let display = ["<h5>Soft preference score: " + (combo["score"] - num_mandatory * 1000) + "</h5>"];
-                display.push("<ul>");
-                for (let frag of combo["used_fragments"]) {
-                    display.push("<li>");
-                    display.push(icon(frag) + " " + frag);
-                    display.push("</li>");
-                }
-                display.push("</ul>");
-                
-                let effects = [];
-                for (let set of combo["activated_set_effects"]) {
-                    if (should_show_level[set[0]]) {
-                        effects.push(icon(set[0]) + " (" + set[1] + ")");
-                    } else {
-                        effects.push(icon(set[0]));
-                    }
-                }
-                if (effects.length > 0) {
-                    display.push("Set effects: " + effects.join(", "));
-                } else {
-                    display.push("Set effects: none.");
-                }
-
-                resultdiv.insertAdjacentHTML("beforeend", display.join(""));
-            }
-
-            if (num_filtered === 0) {
-                resultdiv.innerHTML = 'No results.';
-            }
-        
-            tippy('#results [title]', {
-  content(reference) {
-    const title = reference.getAttribute('title');
-    reference.removeAttribute('title');
-    return title;
-  },
-});
-        });
+        $("#calculate").click(document.calculate_fragments);
 
         $("#reset").click(function() {
             document.getElementById("calcinput").reset();
+            history.replaceState({}, "", `${location.pathname}`);
         });
+
+        window.addEventListener('popstate', function(event) {
+            document.load_form_from_hash();
+        });
+
+        document.load_form_from_hash();
     }
     
     run();

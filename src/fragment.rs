@@ -1,5 +1,5 @@
 use anyhow::{Context, Ok, Result};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
@@ -59,6 +59,7 @@ pub struct Combination {
     score: i64,
     used_fragments: Vec<String>,
     activated_set_effects: Vec<(String, u8)>,
+    alternatives: Option<(String, Vec<String>)>,
 }
 
 pub fn best_combinations(
@@ -141,7 +142,7 @@ pub fn best_combinations(
         .try_collect()?;
     
     let num_optional_frags = max_fragments as i64 - mandatory_fragments.len() as i64;
-    let best_combinations = (0..=num_optional_frags)
+    let mut best_combinations: Vec<Combination> = (0..=num_optional_frags)
         .flat_map(|k| filtered_frag_ids.iter().copied().combinations(k as usize))
         .map(|mut comb| {
             comb.extend(&mandatory_fragments);
@@ -180,9 +181,60 @@ pub fn best_combinations(
                 score: -negscore,
                 used_fragments,
                 activated_set_effects,
+                alternatives: None
             }
         })
         .collect();
+
+    // Try to merge results.
+    let mut i = 0;
+    while i < best_combinations.len() {
+        let mut merged = false;
+        let (before, after) = best_combinations.split_at_mut(i);
+        let bci = &after[0];
+        let bci_frags: HashSet<String> = HashSet::from_iter(bci.used_fragments.iter().cloned());
+
+        for absorber in before.iter_mut() {
+            let same_score = bci.score == absorber.score;
+            let same_num_frags = bci.used_fragments.len() == absorber.used_fragments.len();
+            if !(same_score && same_num_frags) {
+                continue;
+            }
+
+            let same_set_effects = bci.activated_set_effects == absorber.activated_set_effects;
+            if !same_set_effects {
+                continue;
+            }
+
+            let absorber_frags: HashSet<String> = HashSet::from_iter(absorber.used_fragments.iter().cloned());
+            let common = &bci_frags & &absorber_frags; 
+            if common.len() == bci.used_fragments.len() - 1 {
+                let cur = (&absorber_frags - &common).into_iter().next().unwrap();
+                let alt = (&bci_frags - &common).into_iter().next().unwrap();
+                match &mut absorber.alternatives {
+                    out @ None => {
+                        *out = Some((cur, vec![alt]));
+                        merged = true;
+                        break;
+                    },
+                    Some((c, v)) if c == &cur => {
+                        v.push(alt);
+                        v.sort();
+                        merged = true;
+                        break;
+                    },
+
+                    Some(_) => {}
+                }
+            }
+        }
+
+        if merged {
+            best_combinations.remove(i);
+        } else {
+            i += 1;
+        }
+    }
 
     Ok(best_combinations)
 }

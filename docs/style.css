@@ -36,14 +36,13 @@ body, table {
     margin: 0;
     padding: 1em;
     height: 100vh;
-    box-sizing: border-box;
 }
 
 .mainleft {
-    grid-row-end: span;
-    max-height: 100vh;
+    grid-column-end: span;
     display: flex;
     flex-direction: column;
+    max-height: calc(100vh - 1em);
 }
 
 #calcinput {

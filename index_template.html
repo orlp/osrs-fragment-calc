@@ -42,117 +42,202 @@ TABLEGRIDHERE
     import init, { init_panic_hook, compute_combinations } from './pkg/fragments.js';
 
     let fragsets = FRAGSETSHERE;
+    let compressed_names = COMPRESSED_NAMES_HERE;
+    let should_show_level = {};
+    should_show_level["Absolute Unit"] = true;
+    should_show_level["Chain Magic"] = true;
+    should_show_level["Double Tap"] = true;
+    should_show_level["Drakan's Touch"] = true;
+    should_show_level["Greedy Gatherer"] = true;
+    should_show_level["Knife's Edge"] = true;
+    should_show_level["Personal Banker"] = true;
+    should_show_level["Twin Strikes"] = true;
 
-    let icon = function(name) {
+    let icon = function(name, keepname) {
         let icon_name = name.replace("Last Recall", "Last Recall (Shattered Relics)").replaceAll(" ", "_");
         let url = "https://oldschool.runescape.wiki/images/" + encodeURIComponent(icon_name) + ".png";
         let title = name;
         if (fragsets[name] != null) {
-            title = fragsets[name].join(" / ");
+            if (keepname) {
+                title += ", " + fragsets[name].join(" / ");
+            } else {
+                title = fragsets[name].join(" / ");
+            }
         }
         let img = '<img class="icon" src="' + url + '" title="' + title + '">';
         return img;
     }
+
+    document.read_frag_form = function() {
+        let frag_weights = {};
+        let set_effect_weights = [];
+        
+        $(':radio:checked').each(function(e) {
+            let name = this.getAttribute("data-name");
+            let lvl = this.getAttribute("data-lvl");
+            let weight = parseInt(this.value);
+            if (weight != 0) {
+                if (lvl !== null) {
+                    set_effect_weights.push([name, parseInt(lvl), weight]);
+                } else {
+                    frag_weights[name] = weight;
+                }
+            }
+        });
+
+        return {
+            "max_fragments": parseInt(document.getElementById("maxfrags").value),
+            "set_effect_weights": set_effect_weights,
+            "frag_weights": frag_weights,
+        };
+    }
+
+    let form_name = function(name) {
+        return name.toLowerCase().replaceAll(" ", "-").replaceAll("&", "n").replaceAll("!", "").replaceAll("'", "");
+    }
+
+    document.compress_formdata = function(formdata) {
+        let compressed = {
+            "max_fragments": formdata["max_fragments"],
+            "set_effect_weights": [],
+            "frag_weights": {},
+        };
+        for (const [name, w] of Object.entries(formdata["frag_weights"])) {
+            compressed["frag_weights"][compressed_names.indexOf(name)] = w;
+        }
+        for (const [name, lvl, w] of formdata["set_effect_weights"]) {
+            compressed["set_effect_weights"].push([compressed_names.indexOf(name), lvl, w]);
+        }
+        return compressed;
+    }
+
+    document.decompress_formdata = function(formdata) {
+        let decompressed = {
+            "max_fragments": formdata["max_fragments"],
+            "set_effect_weights": [],
+            "frag_weights": {},
+        };
+        for (const [idx, w] of Object.entries(formdata["frag_weights"])) {
+            decompressed["frag_weights"][compressed_names[idx]] = w;
+        }
+        for (const [idx, lvl, w] of formdata["set_effect_weights"]) {
+            decompressed["set_effect_weights"].push([compressed_names[idx], lvl, w]);
+        }
+        return decompressed;
+    }
+
+    document.write_frag_form = function(formdata) {
+        for (const [name, w] of Object.entries(formdata["frag_weights"])) {
+            $("input[name=" + form_name(name) + "-radio]").val([w]);
+        }
+        for (const [name, lvl, w] of formdata["set_effect_weights"]) {
+            $("input[name=" + form_name(name) + "-" + lvl + "-radio]").val([w]);
+        }
+        document.getElementById("maxfrags").value = formdata["max_fragments"];
+    }
+
+    document.load_form_from_hash = function() {
+        let query = location.hash.substring(1);
+        if (query) {
+            let compressed = JSON.parse(atob(query));
+            let formdata = document.decompress_formdata(compressed);
+            document.write_frag_form(formdata);
+            document.calculate_fragments();
+        }
+    }
+
+    document.calculate_fragments = function() {
+        let formdata = document.read_frag_form();
+        let compressed = JSON.stringify(document.compress_formdata(formdata));
+        history.replaceState({}, "", `${location.pathname}#${btoa(compressed)}`);
+
+        formdata["max_results"] = 25;
+        let query = JSON.stringify(formdata);
+        let result = JSON.parse(compute_combinations(query));
+
+        let num_mandatory = 0;
+        for (const [_name, w] of Object.entries(formdata["frag_weights"])) {
+            if (w >= 1000) num_mandatory += 1;
+        }
+        for (const [_name, _lvl, w] of formdata["set_effect_weights"]) {
+            if (w >= 1000) num_mandatory += 1;
+        }
+        
+        let resultdiv = document.getElementById("results");
+        resultdiv.innerHTML = '';
+        let num_filtered = 0;
+        for (let combo of result["result"]) {
+            // Filter missed mandatory requirements (this also takes care
+            // of highly negative forbidden combos).
+            if (combo["score"] < num_mandatory * 1000 - 100) {
+                continue;
+            }
+            num_filtered += 1;
+
+            let display = ['<div class="result"><h5>Soft preference score: ' + (combo["score"] - num_mandatory * 1000) + "</h5>"];
+            display.push("<ul>");
+            for (let frag of combo["used_fragments"]) {
+                display.push("<li>");
+                display.push(icon(frag, false) + " " + frag);
+                if (combo["alternatives"] && combo["alternatives"][0] === frag) {
+                    display.push(" (or ");
+                    display.push(combo["alternatives"][1].map(function(a) { return icon(a, true); }).join(", "));
+                    display.push(")");
+                }
+                display.push("</li>");
+            }
+            display.push("</ul>");
+            
+            let effects = [];
+            for (let set of combo["activated_set_effects"]) {
+                if (should_show_level[set[0]]) {
+                    effects.push(icon(set[0], false) + " (" + set[1] + ")");
+                } else {
+                    effects.push(icon(set[0], false));
+                }
+            }
+            if (effects.length > 0) {
+                display.push("Set effects: " + effects.join(", "));
+            } else {
+                display.push("Set effects: none.");
+            }
+            display.push("</div>")
+
+            resultdiv.insertAdjacentHTML("beforeend", display.join(""));
+        }
+
+        if (num_filtered === 0) {
+            resultdiv.innerHTML = 'No results.';
+        }
+        resultdiv.insertAdjacentHTML("beforeend", "<br><br>");
+    
+        tippy('#results [title]', {
+            content(reference) {
+                const title = reference.getAttribute('title');
+                reference.removeAttribute('title');
+                return title;
+            },
+        });
+    };
     
     async function run() {
         await init();
         init_panic_hook();
-
-        let should_show_level = {};
-        should_show_level["Absolute Unit"] = true;
-        should_show_level["Chain Magic"] = true;
-        should_show_level["Double Tap"] = true;
-        should_show_level["Drakan's Touch"] = true;
-        should_show_level["Greedy Gatherer"] = true;
-        should_show_level["Knife's Edge"] = true;
-        should_show_level["Personal Banker"] = true;
-        should_show_level["Twin Strikes"] = true;
         
         // And afterwards we can use all the functionality defined in wasm.
         // console.log(compute_combinations);
-        $("#calculate").click(function() {
-            let frag_weights = {};
-            let set_effect_weights = [];
-            
-            let num_mandatory = 0;
-            
-            $(':radio:checked').each(function(e) {
-                let name = this.getAttribute("data-name");
-                let lvl = this.getAttribute("data-lvl");
-                let weight = parseInt(this.value);
-                if (weight != 0) {
-                    if (weight >= 1000) {
-                        num_mandatory += 1;
-                    }
-                    if (lvl !== null) {
-                        set_effect_weights.push([name, parseInt(lvl), weight]);
-                    } else {
-                        frag_weights[name] = weight;
-                    }
-                }
-                
-            });
-            let query = JSON.stringify({
-                "max_fragments": parseInt(document.getElementById("maxfrags").value),
-                "set_effect_weights": set_effect_weights,
-                "frag_weights": frag_weights,
-                "max_results": 25,
-            });
-            let result = JSON.parse(compute_combinations(query));
-            
-            let resultdiv = document.getElementById("results");
-            resultdiv.innerHTML = '';
-            let num_filtered = 0;
-            for (let combo of result["result"]) {
-                // Filter missed mandatory requirements (this also takes care
-                // of highly negative forbidden combos).
-                if (combo["score"] < num_mandatory * 1000 - 100) {
-                    continue;
-                }
-                num_filtered += 1;
-
-                let display = ["<h5>Soft preference score: " + (combo["score"] - num_mandatory * 1000) + "</h5>"];
-                display.push("<ul>");
-                for (let frag of combo["used_fragments"]) {
-                    display.push("<li>");
-                    display.push(icon(frag) + " " + frag);
-                    display.push("</li>");
-                }
-                display.push("</ul>");
-                
-                let effects = [];
-                for (let set of combo["activated_set_effects"]) {
-                    if (should_show_level[set[0]]) {
-                        effects.push(icon(set[0]) + " (" + set[1] + ")");
-                    } else {
-                        effects.push(icon(set[0]));
-                    }
-                }
-                if (effects.length > 0) {
-                    display.push("Set effects: " + effects.join(", "));
-                } else {
-                    display.push("Set effects: none.");
-                }
-
-                resultdiv.insertAdjacentHTML("beforeend", display.join(""));
-            }
-
-            if (num_filtered === 0) {
-                resultdiv.innerHTML = 'No results.';
-            }
-        
-            tippy('#results [title]', {
-  content(reference) {
-    const title = reference.getAttribute('title');
-    reference.removeAttribute('title');
-    return title;
-  },
-});
-        });
+        $("#calculate").click(document.calculate_fragments);
 
         $("#reset").click(function() {
             document.getElementById("calcinput").reset();
+            history.replaceState({}, "", `${location.pathname}`);
         });
+
+        window.addEventListener('popstate', function(event) {
+            document.load_form_from_hash();
+        });
+
+        document.load_form_from_hash();
     }
     
     run();
