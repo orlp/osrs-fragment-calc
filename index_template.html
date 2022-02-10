@@ -55,7 +55,8 @@ TABLEGRIDHERE
 
     let icon = function(name, keepname) {
         let icon_name = name.replace("Last Recall", "Last Recall (Shattered Relics)").replaceAll(" ", "_");
-        let url = "https://oldschool.runescape.wiki/images/" + encodeURIComponent(icon_name) + ".png";
+        let url = "https://oldschool.runescape.wiki/w/" + encodeURIComponent(icon_name);
+        let icon_url = "https://oldschool.runescape.wiki/images/" + encodeURIComponent(icon_name) + ".png";
         let title = name;
         if (fragsets[name] != null) {
             if (keepname) {
@@ -64,7 +65,7 @@ TABLEGRIDHERE
                 title = fragsets[name].join(" / ");
             }
         }
-        let img = '<img class="icon" src="' + url + '" title="' + title + '">';
+        let img = '<a href="' + url + '"><img class="icon" src="' + icon_url + '" title="' + title + '"></a>';
         return img;
     }
 

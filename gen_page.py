@@ -57,9 +57,10 @@ for category in categories:
         if frag["category"] != category: continue
         extra = f'data-name="{frag["name"]}"'
         icon = "https://oldschool.runescape.wiki/images/" + quote_plus(frag["name"].replace(" ", "_")) + ".png"
+        url = "https://oldschool.runescape.wiki/w/" + quote_plus(frag["name"].replace(" ", "_"))
 
         out.append(fr"""
-<tr><td><img class="icon" src="{icon}" title="{' / '.join(sorted([frag["set_effect_1"], frag["set_effect_2"]]))}"></td>
+<tr><td><a href="{url}"><img class="icon" src="{icon}" title="{' / '.join(sorted([frag["set_effect_1"], frag["set_effect_2"]]))}"></a></td>
 <td>{frag["name"]}</td><td>{genradio(frag["name"], extra)}</td></tr>
         """)
 
@@ -91,8 +92,9 @@ for effect in sorted(set_effects, key=lambda s: s["name"]):
         extra = f'data-lvl="{lvl}" data-name="{effect["name"]}"'
         iconname = effect["name"].replace("Last Recall", "Last Recall (Shattered Relics)")
         icon = "https://oldschool.runescape.wiki/images/" + quote_plus(iconname.replace(" ", "_")) + ".png"
+        url = "https://oldschool.runescape.wiki/w/" + quote_plus(iconname.replace(" ", "_"))
         out.append(fr"""
-        <tr><td><img class="icon" src="{icon}" title="{effect["name"]}"></td><td>{effect["name"]}{lvltag}</td><td>{genradio(effect["name"] + "-" + str(lvl), extra)}</td></tr>
+        <tr><td><a href="{url}"><img class="icon" src="{icon}" title="{effect["name"]}"></a></td><td>{effect["name"]}{lvltag}</td><td>{genradio(effect["name"] + "-" + str(lvl), extra)}</td></tr>
         """)
 out.append(fr"""
 </tbody>
